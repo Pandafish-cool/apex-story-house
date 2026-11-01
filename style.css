@@ -74,3 +74,17 @@ body.welcome-open{overflow:hidden}.welcome-screen{position:fixed;inset:0;backgro
 @media(prefers-reduced-motion:reduce){.welcome-screen.entering{animation:none!important}}
 
 @media(max-width:700px){.welcome-layout{flex:none}.welcome-bottom{padding-top:27px;padding-bottom:8px}.carousel-hint{margin-bottom:0}}
+/* Give story and lottery photographs more of the page. */
+.chapter-content{grid-template-columns:minmax(250px,.65fr) minmax(0,1.5fr);gap:42px;min-height:540px;padding-top:50px;padding-bottom:40px}
+.chapter-images{gap:20px;min-width:0}
+.chapter-photo{padding:10px;rotate:-3deg}
+.chapter-photo:nth-child(2){rotate:3deg;margin-top:65px}
+.chapter-photo img{height:clamp(270px,28vw,440px);width:100%;object-fit:contain}
+.draw-layout{grid-template-columns:minmax(0,1.7fr) minmax(280px,.72fr);gap:55px;align-items:center}
+.draw-stage{transform:rotate(-2deg);padding:13px 13px 19px}
+.draw-stage img{height:clamp(420px,43vw,670px);object-fit:contain}
+.draw-stage h3{font-size:20px}
+.ticket{padding:26px 22px}.ticket h3{font-size:29px}
+@media(min-width:1600px){.chapter-photo img{height:460px}.draw-stage img{height:min(65vh,760px)}}
+@media(max-width:1050px) and (min-width:701px){.chapter-content{grid-template-columns:minmax(210px,.65fr) minmax(0,1.35fr);gap:25px}.chapter-images{gap:12px}.chapter-photo img{height:300px}.draw-layout{grid-template-columns:minmax(0,1.5fr) minmax(245px,.72fr);gap:30px}.draw-stage img{height:470px}.ticket h3{font-size:25px}.draw-button{font-size:20px}}
+@media(max-width:700px){.chapter-content{padding-top:25px;padding-bottom:25px;min-height:0;gap:24px}.chapter-images{display:flex;flex-direction:column;gap:30px;padding:10px 2px 15px}.chapter-photo{width:100%;rotate:-2deg;padding:9px}.chapter-photo:nth-child(2){margin-top:0;rotate:2deg}.chapter-photo img{height:auto;max-height:390px;min-height:230px;aspect-ratio:4/3;object-fit:contain}.draw-layout{gap:30px}.draw-stage{margin:8px 0 0;padding:9px 9px 15px}.draw-stage img{height:clamp(330px,100vw,480px)}.draw-stage h3{font-size:17px}.ticket h3{font-size:28px}.chapter-copy h3{font-size:25px}}
