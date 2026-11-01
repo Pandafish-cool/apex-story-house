@@ -88,3 +88,12 @@ body.welcome-open{overflow:hidden}.welcome-screen{position:fixed;inset:0;backgro
 @media(min-width:1600px){.chapter-photo img{height:460px}.draw-stage img{height:min(65vh,760px)}}
 @media(max-width:1050px) and (min-width:701px){.chapter-content{grid-template-columns:minmax(210px,.65fr) minmax(0,1.35fr);gap:25px}.chapter-images{gap:12px}.chapter-photo img{height:300px}.draw-layout{grid-template-columns:minmax(0,1.5fr) minmax(245px,.72fr);gap:30px}.draw-stage img{height:470px}.ticket h3{font-size:25px}.draw-button{font-size:20px}}
 @media(max-width:700px){.chapter-content{padding-top:25px;padding-bottom:25px;min-height:0;gap:24px}.chapter-images{display:flex;flex-direction:column;gap:30px;padding:10px 2px 15px}.chapter-photo{width:100%;rotate:-2deg;padding:9px}.chapter-photo:nth-child(2){margin-top:0;rotate:2deg}.chapter-photo img{height:auto;max-height:390px;min-height:230px;aspect-ratio:4/3;object-fit:contain}.draw-layout{gap:30px}.draw-stage{margin:8px 0 0;padding:9px 9px 15px}.draw-stage img{height:clamp(330px,100vw,480px)}.draw-stage h3{font-size:17px}.ticket h3{font-size:28px}.chapter-copy h3{font-size:25px}}
+
+/* A larger, photo-led welcome carousel. */
+.welcome-layout{grid-template-columns:.65fr 1.35fr;gap:4%;max-width:1600px}
+.welcome-gallery{padding:25px 8px 0}
+.welcome-polaroid>img{height:min(60vh,620px);min-height:340px}
+@media(min-width:701px) and (max-width:1050px){.welcome-layout{grid-template-columns:.7fr 1.3fr;gap:3%}.welcome-copy h1{font-size:42px}.welcome-polaroid>img{height:54vh;min-height:330px}}
+@media(max-width:700px){.welcome-layout{gap:26px}.welcome-gallery{padding:20px 0 0}.welcome-polaroid>img{height:clamp(300px,85vw,420px);min-height:0}.welcome-copy h1{font-size:37px}}
+
+.welcome-copy h1 span{white-space:nowrap}@media(min-width:1051px){.welcome-copy h1{font-size:clamp(36px,3.4vw,54px)}}
