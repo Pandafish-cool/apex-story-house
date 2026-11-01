@@ -52,3 +52,9 @@
 #lottery.is-projecting .result strong,#lottery.is-projecting #drawPrompt{display:none}
 #lottery.is-projecting #tellStory{color:#ffe273;font-size:14px;white-space:nowrap}
 @media(max-width:700px){#lottery.is-projecting .draw-left{inset:0 6px 125px}#lottery.is-projecting .draw-right{height:120px;flex-wrap:wrap;gap:0 15px;padding:10px}#lottery.is-projecting .ticket{gap:12px}#lottery.is-projecting #drawBtn{width:145px;font-size:17px}#lottery.is-projecting #drawCount{font-size:12px}#lottery.is-projecting #tellStory{padding:0;min-height:36px}#lottery.is-projecting .projection-tools{gap:10px}}
+
+#imageQuality{font-size:12px;color:var(--muted)}#imageQuality:empty{display:none}
+#lottery.is-projecting #imageQuality{color:#ffe273}
+#lottery.is-projecting:not(.fill-photo) .draw-stage img{object-fit:scale-down}
+#lottery.is-projecting .low-resolution img{object-fit:scale-down}
+@media(max-width:700px){#lottery.is-projecting #imageQuality{position:absolute;left:12px;top:48px;z-index:6;font-size:11px}}
