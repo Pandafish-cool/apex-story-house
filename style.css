@@ -58,3 +58,5 @@
 #lottery.is-projecting:not(.fill-photo) .draw-stage img{object-fit:scale-down}
 #lottery.is-projecting .low-resolution img{object-fit:scale-down}
 @media(max-width:700px){#lottery.is-projecting #imageQuality{position:absolute;left:12px;top:48px;z-index:6;font-size:11px}}
+
+.cheer-sound-toggle{font-size:12px;padding:4px 9px;min-height:36px;color:var(--ink);text-decoration:underline;text-underline-offset:4px}.cheer-sound-toggle:hover{color:var(--blue)}

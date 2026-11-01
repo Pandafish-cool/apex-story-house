@@ -30,3 +30,5 @@ python3 -m http.server 8013
 团队照片由项目所有者提供，仅供获授权的团队成员使用，不授予公开再分发许可。照片按主题编排，除已确认的成立年份与照片中可见活动年份外，不推测具体项目史。
 
 背景配乐为本项目合成制作。标题字体为 ZCOOL KuaiLe，遵循 SIL Open Font License，参见 `assets/font-license.txt`。本仓库不使用第三方分析服务。
+
+欢呼音效：dr_skitz 的 [yay.wav](https://freesound.org/people/dr_skitz/sounds/353923/)，CC0 1.0；本项目进行了剪短和淡出，详见 `assets/cheer-license.txt`。
