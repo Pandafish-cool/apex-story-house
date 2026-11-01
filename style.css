@@ -97,3 +97,5 @@ body.welcome-open{overflow:hidden}.welcome-screen{position:fixed;inset:0;backgro
 @media(max-width:700px){.welcome-layout{gap:26px}.welcome-gallery{padding:20px 0 0}.welcome-polaroid>img{height:clamp(300px,85vw,420px);min-height:0}.welcome-copy h1{font-size:37px}}
 
 .welcome-copy h1 span{white-space:nowrap}@media(min-width:1051px){.welcome-copy h1{font-size:clamp(36px,3.4vw,54px)}}
+
+#welcomeCaption{cursor:text;border-bottom:2px dashed #2c4cda66;min-width:0;overflow-wrap:anywhere;white-space:pre-wrap}#welcomeCaption:focus{outline:3px solid var(--blue);outline-offset:6px;border-radius:3px;background:#fff4c0}.chapter-photo-title{display:block;padding:12px 5px 5px;text-align:center;font-size:15px;line-height:1.6;overflow-wrap:anywhere}
