@@ -99,3 +99,15 @@ body.welcome-open{overflow:hidden}.welcome-screen{position:fixed;inset:0;backgro
 .welcome-copy h1 span{white-space:nowrap}@media(min-width:1051px){.welcome-copy h1{font-size:clamp(36px,3.4vw,54px)}}
 
 #welcomeCaption{cursor:text;border-bottom:2px dashed #2c4cda66;min-width:0;overflow-wrap:anywhere;white-space:pre-wrap}#welcomeCaption:focus{outline:3px solid var(--blue);outline-offset:6px;border-radius:3px;background:#fff4c0}.chapter-photo-title{display:block;padding:12px 5px 5px;text-align:center;font-size:15px;line-height:1.6;overflow-wrap:anywhere}
+
+/* Photo detail fills the viewport, with the photograph taking priority. */
+#photoDialog{width:97vw;max-width:1920px;height:96dvh;max-height:96dvh;overflow:hidden}
+#photoDialog .detail-layout{height:100%;grid-template-columns:minmax(0,1fr) minmax(300px,26%)}
+#photoDialog .detail-media{padding:20px 18px 14px;min-height:0;justify-content:flex-start}
+#photoDialog .detail-media>img{flex:1;width:100%;height:0;min-height:0;max-height:none;object-fit:contain}
+#photoDialog .photo-nav{flex-shrink:0;margin-top:10px}
+#photoDialog .detail-story{padding:58px 24px 24px;overflow-y:auto;min-height:0}
+#photoDialog .detail-story h2{font-size:25px}
+#photoDialog .detail-story textarea{height:180px}
+#photoDialog .close{position:absolute;right:13px;top:12px;width:40px;height:40px}
+@media(max-width:700px){#photoDialog{width:98vw;height:97dvh;max-height:97dvh;overflow-y:auto}#photoDialog .detail-layout{display:flex;flex-direction:column;height:auto;min-height:100%}#photoDialog .detail-media{padding:52px 9px 12px;flex:none}#photoDialog .detail-media>img{flex:none;height:62dvh;max-height:none}#photoDialog .detail-story{padding:24px 20px;overflow:visible}#photoDialog .close{position:sticky;float:right;top:10px;margin:10px 10px -50px 0}#photoDialog .detail-story h2{font-size:24px}}
