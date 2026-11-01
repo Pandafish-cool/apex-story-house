@@ -32,3 +32,5 @@ python3 -m http.server 8013
 背景配乐为本项目合成制作。标题字体为 ZCOOL KuaiLe，遵循 SIL Open Font License，参见 `assets/font-license.txt`。本仓库不使用第三方分析服务。
 
 欢呼音效：dr_skitz 的 [yay.wav](https://freesound.org/people/dr_skitz/sounds/353923/)，CC0 1.0；本项目进行了剪短和淡出，详见 `assets/cheer-license.txt`。
+
+欢迎入口：进入网页先展示18张精选团队照片轮播，可暂停、手动切换。点击“推门进来”进入庆祝主题，导航“门外相册”返回入口。
