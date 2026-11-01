@@ -35,7 +35,7 @@ $('#partyButton').onclick=confetti;let nativeProjection=false;
 function projectionOff(){const stage=$('#lottery');stage.classList.remove('is-projecting','fill-photo');document.body.classList.remove('projection-open');$('#photoFit').hidden=true;$('#photoFit').textContent='铺满屏幕';$('#photoFit').setAttribute('aria-pressed','false');$('#fullscreen').textContent='投屏全屏 ↗';nativeProjection=false}
 $('#fullscreen').onclick=async()=>{const stage=$('#lottery');if(stage.classList.contains('is-projecting')){if(document.fullscreenElement)try{await document.exitFullscreen()}catch{}projectionOff();return}stage.classList.add('is-projecting');document.body.classList.add('projection-open');$('#photoFit').hidden=false;$('#fullscreen').textContent='退出全屏 ×';try{await stage.requestFullscreen();nativeProjection=true}catch{/* Keep viewport-filling projection when native fullscreen isn't supported. */}};
 document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement)nativeProjection=false});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#photoDialog').open&&!$('#resetDialog').open){projectionOff();if(document.fullscreenElement)document.exitFullscreen().catch(()=>{})}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#photoDialog').open&&!$('#resetDialog').open&&!$('#eggDialog').open){projectionOff();if(document.fullscreenElement)document.exitFullscreen().catch(()=>{})}});
 $('#photoFit').onclick=()=>{const fill=$('#lottery').classList.toggle('fill-photo');$('#photoFit').textContent=fill?'完整显示':'铺满屏幕';$('#photoFit').setAttribute('aria-pressed',String(fill))};
 
 Promise.resolve(window.APEX_PHOTOS).then(d=>{if(!Array.isArray(d)||d.length!==116)throw Error();return d}).then(d=>{photos=d;saved.drawn=[...new Set(saved.drawn.filter(id=>Number.isInteger(id)&&id>=1&&id<=d.length))];render();showChapter();showOriginal(saved.drawn[saved.drawn.length-1]||19);setTimeout(confetti,600)}).catch(()=>{$('#photoCount').textContent='照片暂时没加载成功，请刷新重试';$('#drawBtn').disabled=true;toast('照片未加载，请刷新页面。')});
@@ -45,7 +45,7 @@ for(let i=0;i<27;i++){const p=document.createElement('i');p.style.cssText=`--lef
 let cheerEnabled=true;const cheerSound=$('#cheerSound');cheerSound.volume=.75;$('#cheerSoundToggle').onclick=()=>{cheerEnabled=!cheerEnabled;$('#cheerSoundToggle').textContent=cheerEnabled?'欢呼声：开 ♪':'欢呼声：关 ♪';$('#cheerSoundToggle').setAttribute('aria-pressed',String(cheerEnabled));if(!cheerEnabled)cheerSound.pause()};
 let cheers=0;$('#cheerButton').onclick=()=>{if(cheerEnabled){cheerSound.currentTime=0;cheerSound.play().catch(()=>toast('欢呼声未能播放，请检查浏览器的声音设置。'))}cheers++;$('#cheerCount').textContent=`已经送出 ${cheers} 份掌声，快乐继续加倍！`;confetti();if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const bubble=document.createElement('span');bubble.className='cheer-bubble';bubble.textContent=['好耶！','为你们开心！','一起庆祝！'][cheers%3];$('.hero').append(bubble);bubble.addEventListener('animationend',()=>bubble.remove())}};
 
-async function showOriginal(id){const p=photos.find(x=>x.id===id);if(!p)return false;const original=new Image();original.src=img(id);try{await original.decode()}catch{toast('原图未能加载，请检查网络后重试；本次不会计入抽签。');return false}$('#drawImage').src=original.src;$('#drawStage').dataset.photoId=id;lastDisplayedPhoto=id;$('#imageQuality').textContent=p.tiny?`原图仅 ${p.width} × ${p.height}，放大会模糊`:'';$('#drawStage').classList.toggle('low-resolution',Boolean(p.tiny));return true;}
+async function showOriginal(id){hideDrawEgg();const p=photos.find(x=>x.id===id);if(!p)return false;const original=new Image();original.src=img(id);try{await original.decode()}catch{toast('原图未能加载，请检查网络后重试；本次不会计入抽签。');return false}$('#drawImage').src=original.src;$('#drawStage').dataset.photoId=id;lastDisplayedPhoto=id;$('#imageQuality').textContent=p.tiny?`原图仅 ${p.width} × ${p.height}，放大会模糊`:'';$('#drawStage').classList.toggle('low-resolution',Boolean(p.tiny));return true;}
 $('#drawStage').onclick=()=>{if(!drawing&&photos.length)openPhoto(lastDisplayedPhoto)};
 $('#drawStage').onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();$('#drawStage').click()}};
 
@@ -71,3 +71,18 @@ $('#storyTitle').addEventListener('change',()=>{if(!current)return;savePhotoTitl
 function updateSiteFullscreen(){const active=document.fullscreenElement===document.documentElement;$$('.site-fullscreen').forEach(b=>{b.textContent=active?'退出网页全屏 ×':'网页全屏 ↗';b.setAttribute('aria-pressed',String(active))})}
 $$('.site-fullscreen').forEach(b=>b.addEventListener('click',async()=>{try{if(document.fullscreenElement===document.documentElement){await document.exitFullscreen()}else{if(document.fullscreenElement)await document.exitFullscreen();projectionOff();await document.documentElement.requestFullscreen()}updateSiteFullscreen()}catch{toast('当前预览窗口不支持网页全屏，请在 Chrome 或 Safari 中打开后使用。')}}));
 document.addEventListener('fullscreenchange',updateSiteFullscreen);updateSiteFullscreen();
+
+// Two real QR codes, with a playful gate that never verifies or requires payment.
+let eggMode='gate',eggPreviousFocus=null;
+const enterStoryHouse=$('#enterHouse').onclick;
+function hideDrawEgg(){$('#drawEgg').hidden=true;$('#drawImage').hidden=false;$('#drawStage').classList.remove('egg-stage')}
+function openEgg(mode){eggMode=mode;eggPreviousFocus=document.activeElement;$('#eggTitle').textContent=mode==='gate'?'等等，故事屋还有门票？！':'恭喜，抽中隐藏款：快乐基金！';$('#eggText').innerHTML=mode==='gate'?'扫码解锁我们的故事，快乐基金随意打赏。<br>两位收款嘉宾，已经准备就绪。':'回忆还没讲，收款码先来敲门了。<br>这份运气，值得全场笑一笑！';$('#eggUnlock').textContent=mode==='gate'?'已扫码，放我进去 →':'哈哈，继续抽回忆 →';$('#eggSkip').textContent=mode==='gate'?'先欠着，直接进屋 ↗':'快乐收到，钱包先保管好 ♡';$('#eggDialog').showModal()}
+function finishEgg(){const mode=eggMode;$('#eggDialog').close();if(mode==='gate')enterStoryHouse();else eggPreviousFocus?.focus();confetti()}
+$('#enterHouse').onclick=()=>openEgg('gate');$('#eggUnlock').onclick=finishEgg;$('#eggSkip').onclick=finishEgg;
+$('#eggDialog').addEventListener('cancel',()=>{setTimeout(()=>eggPreviousFocus?.focus(),0)});
+function revealDrawEgg(count=true){if(drawing)return;if(count){saved.eggDrawn=true;persist()}$('#drawImage').hidden=true;$('#drawEgg').hidden=false;$('#drawStage').classList.add('egg-stage');$('#drawTitle').textContent='隐藏款！收款码来敲门啦 ✦';$('#drawResult').hidden=false;$('#drawPrompt').textContent='这张不占照片名额，也不需要付款。快乐基金，主打一个随缘！';$('#tellStory').textContent='打开快乐基金彩蛋 ↗';$('#tellStory').onclick=()=>openEgg('draw');confetti()}
+const drawMemory=$('#drawBtn').onclick;$('#drawBtn').onclick=()=>{if(drawing)return;$('#tellStory').textContent='把故事写下来 ↗';if(!saved.eggDrawn&&secureIndex(8)===0){revealDrawEgg();return}hideDrawEgg();drawMemory()};
+$('#previewEgg').onclick=()=>{revealDrawEgg(false);openEgg('draw')};
+$('#drawStage').addEventListener('click',e=>{if(!$('#drawEgg').hidden){e.stopImmediatePropagation();openEgg('draw')}},true);
+$('#drawStage').addEventListener('keydown',e=>{if(!$('#drawEgg').hidden&&['Enter',' '].includes(e.key)){e.preventDefault();e.stopImmediatePropagation();openEgg('draw')}},true);
+const resetMemoryRound=$('#confirmReset').onclick;$('#confirmReset').onclick=()=>{saved.eggDrawn=false;hideDrawEgg();$('#tellStory').textContent='把故事写下来 ↗';resetMemoryRound()};
