@@ -63,3 +63,7 @@ $('#welcomeCaption').addEventListener('focus',()=>{welcomePaused=true;++welcomeL
 $('#welcomeCaption').addEventListener('blur',()=>savePhotoTitle(welcomePhotos[welcomeIndex].id,$('#welcomeCaption').textContent));
 $('#welcomeCaption').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();e.currentTarget.blur()}});
 $('#storyTitle').addEventListener('change',()=>{if(!current)return;savePhotoTitle(current.id,$('#storyTitle').value);$('#detailTitle').textContent=$('#storyTitle').value.trim()||'这张照片，你还记得吗？';$('#saveStatus').textContent='照片标题已自动保存'});
+
+function updateSiteFullscreen(){const active=document.fullscreenElement===document.documentElement;$$('.site-fullscreen').forEach(b=>{b.textContent=active?'退出网页全屏 ×':'网页全屏 ↗';b.setAttribute('aria-pressed',String(active))})}
+$$('.site-fullscreen').forEach(b=>b.addEventListener('click',async()=>{try{if(document.fullscreenElement===document.documentElement){await document.exitFullscreen()}else{if(document.fullscreenElement)await document.exitFullscreen();projectionOff();await document.documentElement.requestFullscreen()}updateSiteFullscreen()}catch{toast('当前预览窗口不支持网页全屏，请在 Chrome 或 Safari 中打开后使用。')}}));
+document.addEventListener('fullscreenchange',updateSiteFullscreen);updateSiteFullscreen();
